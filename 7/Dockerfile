@@ -11,9 +11,14 @@ RUN apt-get update &&\
         libmcrypt-dev \
         libpng12-dev \
         zlib1g-dev \
+        locales \
+ && echo en_US.UTF-8 UTF-8 >> /etc/locale.gen \
+ && echo en_GB.UTF-8 UTF-8 >> /etc/locale.gen \
+ && /usr/sbin/locale-gen \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/*
 
+# Install typo3
 RUN cd /var/www/html && \
     wget -O - https://get.typo3.org/7 | tar -xzf - && \
     ln -s typo3_src-* typo3_src && \
